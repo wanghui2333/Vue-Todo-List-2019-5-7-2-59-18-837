@@ -66,6 +66,9 @@ export default {
       this.ALL = false
       this.Active = false
       this.Complete = true
+    },
+    CheckItem (item) {
+      item.status = !item.status
     }
     // remove: function (arr, value) {
     //   let index = arr.indexOf(value)
