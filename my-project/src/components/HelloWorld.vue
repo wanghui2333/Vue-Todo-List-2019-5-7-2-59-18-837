@@ -10,15 +10,21 @@
     <input type="text" v-model="input">
     <button @click = "increment">Add</button>
     <ul>
-      <li v-for="n in parseInt(count)" :key="n">
-        <div>
-            <label><input type="checkbox"/>{{data[n - 1]}}</label>
+      <li v-for="item in allData" :key="item">
+        <div v-show="ALL">
+            <label><input type="checkbox" v-on:click="CheckItem(item)"/>{{item.value}}</label>
+        </div>
+        <div v-show="Active && !item.status">
+            <label><input type="checkbox" v-on:click="CheckItem(item)"/>{{item.value}}</label>
+        </div>
+        <div v-show="Complete && item.status">
+            <label><input type="checkbox" v-on:click="CheckItem(item)"/>{{item.value}}</label>
         </div>
       </li>
     </ul>
-    <button>ALL</button>
-    <button>Active</button>
-    <button>Complete</button>
+    <button @click = "allOnClick">ALL</button>
+    <button @click = "activeOnClick">Active</button>
+    <button @click = "completeOnClick">Complete</button>
   </div>
 </template>
 
@@ -34,14 +40,51 @@ export default {
       ALL: true,
       Active: false,
       Complete: false,
-      data: []
+      allData: []
     }
   },
   methods: {
     increment () {
-      this.data.push(this.input)
+      let temp = {
+        value: this.input,
+        status: false
+      }
+      this.allData.push(temp)
       this.count++
+    },
+    allOnClick () {
+      this.ALL = true
+      this.Active = false
+      this.Complete = false
+    },
+    activeOnClick () {
+      this.ALL = false
+      this.Active = true
+      this.Complete = false
+    },
+    completeOnClick () {
+      this.ALL = false
+      this.Active = false
+      this.Complete = true
     }
+    // remove: function (arr, value) {
+    //   let index = arr.indexOf(value)
+    //   if (index > -1) {
+    //     arr.splice(index, 1)
+    //   }
+    // },
+    // CheckItem: function (item) {
+    //   item.status = !item.status
+    //   if (item.status) {
+    //     this.remove(this.activeData, item.value)
+    //     this.completeData.push(item)
+    //     console.log(this.completeData)
+    //   } else {
+    //     this.remove(this.completeData, item.value)
+    //     this.activeData.push(item)
+    //     console.log(this.activeData)
+    //   }
+    // }
   }
 }
 </script>
