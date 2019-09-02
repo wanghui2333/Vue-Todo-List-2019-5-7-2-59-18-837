@@ -23,12 +23,8 @@
 </template>
 
 <script>
-import Stylesheet from './Stylesheet'
 export default {
   name: 'HelloWorld',
-  components: {
-    Stylesheet
-  },
   data () {
     return {
       title: 'Jquery To Do List',
